@@ -1,0 +1,35 @@
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: '#mytextarea'
+  });
+</script>
+
+<div class="add-post-content">
+    <div class="container">
+      <div>
+        <h3 class="new-post-title">Create New Post</h3>
+      </div>
+      <hr>
+      <form [formGroup]="addPostForm" (ngSubmit)="addPost()" novalidate>
+        <div *ngIf="success" class="alert alert-danger"> {{success}}</div>
+        <div class="form-group">
+          <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+            <div *ngIf="title.errors.required">title is required.</div>
+          </div>
+          <label class="post-title">Title</label>
+          <input type="text" [formControlName]="'title'" ng-required ="true" ng-model="title" class="form-control" placeholder="Title">
+         </div>
+        <div class="form-group">
+          <div *ngIf="body.touched && body.invalid" class="alert alert-danger">
+            <div *ngIf="body.errors.required">body is required.</div>
+          </div>
+          <label class="post-content">Body</label>
+           <editor [formControlName]="'body'" [init]="{plugins: 'link'}"ng-model="body" ng-required ="true" ></editor>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" >Post</button>
+        </div>
+      </form >
+    </div>
+  </div>
